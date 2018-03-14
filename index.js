@@ -32,7 +32,8 @@ function gulpSvgMin (options) {
                                     .replace(/\<svg/, '<svg class="svgic svgic-' + svgName + '" role="img" aria-hidden="true"')
                                     .replace(/(fill\=\"\#[^"]+\")|(style\=\"fill\:[^"]+\")/g, 'fill="currentColor"')
                                     .replace(/\>\s+\</g, "><")
-                                    .replace(/( $)|( style\=\"[^"]+\")/, "");
+                                    .replace(/( $)|( style\=\"[^"]+\")/, "")
+                                    .trim();
 
             if (!regex.containsWidthHeight.test(modified.match(/\<svg [^>]+/)[0])) {
                 if (regex.viewBox.test.test(modified)) {
