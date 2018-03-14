@@ -12,7 +12,7 @@ function gulpSvgMin (options) {
 			this.emit("error", new PluginError(PLUGIN_NAME, "Streams are not supported!"));
 			return callback();
 		}
-		
+
 		var svgName = Path.basename(file.relative, Path.extname(file.relative)).replace(/^\d\d\d\-/g, ""),
             fileContents = "",
             regex = {
@@ -23,21 +23,21 @@ function gulpSvgMin (options) {
                     clean: /(viewBox\=\"0 0 (?=\d)|(\"$))/g
                 }
             };
-		
+
 		try {
             fileContents = String(file.contents);
-            
+
             var cleaned = fileContents.replace(regex.clean, ""),
                 modified = cleaned.replace(/(\r?\n\s*)/g, " ")
                                     .replace(/\<svg/, '<svg class="svgic svgic-' + svgName + '" role="img" aria-hidden="true"')
                                     .replace(/(fill\=\"\#[^"]+\")|(style\=\"fill\:[^"]+\")/g, 'fill="currentColor"')
                                     .replace(/\>\s+\</g, "><")
                                     .replace(/( $)|( style\=\"[^"]+\")/, "");
-            
+
             if (!regex.containsWidthHeight.test(modified.match(/\<svg [^>]+/)[0])) {
                 if (regex.viewBox.test.test(modified)) {
                     var widthHeightPair = modified.match(regex.viewBox.test)[0].replace(regex.viewBox.clean, "").split(" ");
-                    
+
                     modified = modified.replace(/\<svg/, `<svg width="${widthHeightPair[0]}" height="${widthHeightPair[1]}"`);
                 }
                 else {
@@ -45,7 +45,7 @@ function gulpSvgMin (options) {
                     return;
                 }
             }
-            
+
 			fileContents = modified;
 			file.contents = new Buffer(fileContents);
 			this.push(file);
@@ -55,7 +55,7 @@ function gulpSvgMin (options) {
 			this.push(file);
 			return callback();
 		}
-		
+
 		callback();
 	});
 
