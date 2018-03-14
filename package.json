@@ -1,7 +1,7 @@
 {
   "name": "gulp-svgmin",
   "description": "Gulp plugin to clean and minify SVG files for inline use in HTML pages",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Serhan Apaydın",
     "email": "zerhan@gmail.com"
